@@ -8,30 +8,17 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>org.singledog</groupId>
-    <artifactId>dogmail-gateway</artifactId>
+    <artifactId>dogmail-bus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>dogmail-gateway</name>
-    <description>dogmail-gateway</description>
+    <name>dogmail-bus</name>
+    <description>dogmail-bus</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
     <dependencies>
         <dependency>
-            <groupId>org.singledog</groupId>
-            <artifactId>dogmail-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -39,8 +26,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

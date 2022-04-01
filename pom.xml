@@ -13,6 +13,8 @@
     <modules>
         <module>dogmail-core</module>
         <module>dogmail-gateway</module>
+        <module>dogmail-cache</module>
+        <module>dogmail-mvc-provider</module>
     </modules>
     <!--  the project describe  -->
     <groupId>org.singledog</groupId>

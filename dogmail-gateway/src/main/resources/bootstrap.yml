@@ -1,1 +1,9 @@
-
+spring:
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        name: dogmail-gateway
+        group: dogmail
+        namespace: ${NACOS_NAMESPACE:10001}
+        server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
