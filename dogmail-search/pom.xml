@@ -5,16 +5,13 @@
     <parent>
         <artifactId>dogmail</artifactId>
         <groupId>org.singledog</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-RELEASE</version>
     </parent>
     <groupId>org.singledog</groupId>
     <artifactId>dogmail-search</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
     <name>dogmail-search</name>
     <description>dogmail-search</description>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

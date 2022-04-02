@@ -11,15 +11,19 @@
     </parent>
     <!--  the management module  -->
     <modules>
+        <module>dogmail-back</module>
+        <module>dogmail-bus</module>
+        <module>dogmail-cache</module>
         <module>dogmail-core</module>
         <module>dogmail-gateway</module>
-        <module>dogmail-cache</module>
         <module>dogmail-mvc-provider</module>
+        <module>dogmail-search</module>
+        <module>dogmail-user</module>
     </modules>
     <!--  the project describe  -->
     <groupId>org.singledog</groupId>
     <artifactId>dogmail</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
     <name>dogmail</name>
     <packaging>pom</packaging>
     <description>the mail for single dog</description>
@@ -52,6 +56,21 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.singledog</groupId>
+                <artifactId>dogmail-core</artifactId>
+                <version>1.0.0-RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.singledog</groupId>
+                <artifactId>dogmail-cache</artifactId>
+                <version>1.0.0-RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.singledog</groupId>
+                <artifactId>dogmail-mvc-provider</artifactId>
+                <version>1.0.0-RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
