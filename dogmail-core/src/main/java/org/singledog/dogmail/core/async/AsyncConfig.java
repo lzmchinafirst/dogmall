@@ -5,12 +5,15 @@ import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -20,32 +23,38 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author Zheming Liu
  * @since 1.0.0-RELEASE
  */
-@Configuration(proxyBeanMethods = false)
+@EnableAsync
+@Configuration
 @Slf4j
 public class AsyncConfig implements AsyncConfigurer, ApplicationContextAware, AsyncUncaughtExceptionHandler {
 
     private ApplicationContext applicationContext;
 
     /**
-     * The project thread pool
+     * Create global {@link Executor}
+     */
+    @Bean
+    public Executor createExecutor() {
+        int availableProcessors = Runtime.getRuntime().availableProcessors();
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(availableProcessors * 2 + 1);
+        taskExecutor.setQueueCapacity(1200);
+        taskExecutor.setMaxPoolSize(128);
+        taskExecutor.setKeepAliveSeconds(5);
+        taskExecutor.setAllowCoreThreadTimeOut(false);
+        taskExecutor.setThreadFactory(Executors.defaultThreadFactory());
+        taskExecutor.setAwaitTerminationSeconds(30);
+        taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+        taskExecutor.initialize();
+        return taskExecutor;
+    }
+
+    /**
+     * Return global {@link Executor}
      */
     @Override
     public Executor getAsyncExecutor() {
-        if (applicationContext.getBean(Executor.class) == null) {
-            int availableProcessors = Runtime.getRuntime().availableProcessors();
-            ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-            taskExecutor.setCorePoolSize(availableProcessors * 2 + 1);
-            taskExecutor.setQueueCapacity(1200);
-            taskExecutor.setMaxPoolSize(128);
-            taskExecutor.setKeepAliveSeconds(5);
-            taskExecutor.setAllowCoreThreadTimeOut(false);
-            taskExecutor.setThreadFactory(Executors.defaultThreadFactory());
-            taskExecutor.setAwaitTerminationSeconds(30);
-            taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
-            taskExecutor.initialize();
-            return taskExecutor;
-        }
-        return applicationContext.getBean(Executor.class);
+        return createExecutor();
     }
 
     @Override

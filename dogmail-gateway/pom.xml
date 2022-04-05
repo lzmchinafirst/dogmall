@@ -4,17 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>dogmail</artifactId>
-        <groupId>org.singledog</groupId>
+        <groupId>org.singledog.dogmail</groupId>
         <version>1.0.0-RELEASE</version>
     </parent>
-    <groupId>org.singledog</groupId>
     <artifactId>dogmail-gateway</artifactId>
     <version>1.0.0-RELEASE</version>
     <name>dogmail-gateway</name>
     <description>dogmail-gateway</description>
     <dependencies>
         <dependency>
-            <groupId>org.singledog</groupId>
+            <groupId>org.singledog.dogmail</groupId>
             <artifactId>dogmail-core</artifactId>
         </dependency>
 

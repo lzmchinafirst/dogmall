@@ -4,10 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>dogmail</artifactId>
-        <groupId>org.singledog</groupId>
+        <groupId>org.singledog.dogmail</groupId>
         <version>1.0.0-RELEASE</version>
     </parent>
-    <groupId>org.singledog</groupId>
     <artifactId>dogmail-mvc-provider</artifactId>
     <version>1.0.0-RELEASE</version>
     <name>dogmail-mvc-provider</name>
@@ -22,18 +21,8 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.singledog</groupId>
+            <groupId>org.singledog.dogmail</groupId>
             <artifactId>dogmail-core</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

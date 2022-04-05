@@ -21,15 +21,14 @@
         <module>dogmail-user</module>
     </modules>
     <!--  the project describe  -->
-    <groupId>org.singledog</groupId>
+    <groupId>org.singledog.dogmail</groupId>
     <artifactId>dogmail</artifactId>
     <version>1.0.0-RELEASE</version>
     <name>dogmail</name>
     <packaging>pom</packaging>
-    <description>the mail for single dog</description>
+    <description>A mall dedicated to all single dogs in the world</description>
     <!--  the project version properties  -->
     <properties>
-        <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <lombok.version>1.18.22</lombok.version>
@@ -58,29 +57,20 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.singledog</groupId>
+                <groupId>org.singledog.dogmail</groupId>
                 <artifactId>dogmail-core</artifactId>
                 <version>1.0.0-RELEASE</version>
             </dependency>
             <dependency>
-                <groupId>org.singledog</groupId>
+                <groupId>org.singledog.dogmail</groupId>
                 <artifactId>dogmail-cache</artifactId>
                 <version>1.0.0-RELEASE</version>
             </dependency>
             <dependency>
-                <groupId>org.singledog</groupId>
+                <groupId>org.singledog.dogmail</groupId>
                 <artifactId>dogmail-mvc-provider</artifactId>
                 <version>1.0.0-RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

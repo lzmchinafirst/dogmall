@@ -9,5 +9,4 @@ public class DogmailBusApplication {
     public static void main(String[] args) {
         SpringApplication.run(DogmailBusApplication.class, args);
     }
-
 }

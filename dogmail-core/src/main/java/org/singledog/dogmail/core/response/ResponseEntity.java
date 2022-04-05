@@ -1,5 +1,7 @@
 package org.singledog.dogmail.core.response;
 
+import lombok.Data;
+
 /**
  * The project response
  *
@@ -8,6 +10,7 @@ package org.singledog.dogmail.core.response;
  * @see {@link Response}
  * @since 1.0.0-RELEASE
  */
+@Data
 public class ResponseEntity<T> implements Response {
 
     private Integer code;
@@ -23,21 +26,5 @@ public class ResponseEntity<T> implements Response {
         this.message = message;
         this.success = success;
         this.data = data;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    public T getData() {
-        return data;
     }
 }

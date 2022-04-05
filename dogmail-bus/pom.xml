@@ -4,10 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>dogmail</artifactId>
-        <groupId>org.singledog</groupId>
+        <groupId>org.singledog.dogmail</groupId>
         <version>1.0.0-RELEASE</version>
     </parent>
-    <groupId>org.singledog</groupId>
     <artifactId>dogmail-bus</artifactId>
     <version>1.0.0-RELEASE</version>
     <name>dogmail-bus</name>

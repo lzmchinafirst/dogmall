@@ -2,7 +2,7 @@ package org.singledog.dogmail.mvc.provider.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.singledog.dogmail.core.response.BusinessException;
-import org.singledog.dogmail.core.response.CommonResponse;
+import org.singledog.dogmail.core.response.BaseResponse;
 import org.singledog.dogmail.core.response.ResponseEntity;
 import org.singledog.dogmail.core.response.ResponseFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -34,7 +34,7 @@ public class UnifiedExceptionHandler {
         String requestURI = request.getRequestURI();
         log.error(exception.getMessage(), exception);
         log.error("The system exception occurred in {},the message is {}", requestURI, exception.getMessage());
-        return ResponseFactory.getResponse(CommonResponse.SYSTEM_ERROR, null);
+        return ResponseFactory.getResponse(BaseResponse.SYSTEM_ERROR, null);
     }
 
     /**
@@ -45,7 +45,7 @@ public class UnifiedExceptionHandler {
         String requestURI = request.getRequestURI();
         log.error(exception.getMessage(), exception);
         log.error("The request method not match exception occurred in {},the message is {}", requestURI, exception.getMessage());
-        return ResponseFactory.getResponse(CommonResponse.METHOD_NOT_MATCH_ERROR, null);
+        return ResponseFactory.getResponse(BaseResponse.METHOD_NOT_MATCH_ERROR, null);
     }
 
     /**
@@ -56,7 +56,7 @@ public class UnifiedExceptionHandler {
         String requestURI = request.getRequestURI();
         log.error(exception.getMessage(), exception);
         log.error("The valid exception occurred in {},the message is {}", requestURI, exception.getMessage());
-        return ResponseFactory.getResponse(CommonResponse.VALID_PARAMETER_ERROR, null);
+        return ResponseFactory.getResponse(BaseResponse.VALID_PARAMETER_ERROR, null);
     }
 
     /**
@@ -67,7 +67,7 @@ public class UnifiedExceptionHandler {
         String requestURI = request.getRequestURI();
         log.error(exception.getMessage(), exception);
         log.error("The valid exception occurred in {},the message is {}", requestURI, exception.getMessage());
-        return ResponseFactory.getResponse(CommonResponse.VALID_PARAMETER_ERROR, null);
+        return ResponseFactory.getResponse(BaseResponse.VALID_PARAMETER_ERROR, null);
     }
 
     /**

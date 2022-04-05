@@ -41,7 +41,7 @@ public class ResponseFactory {
      * @return {@link ResponseEntity}
      */
     public static <T> ResponseEntity<T> getSuccessResponse(T data) {
-        return getResponse(CommonResponse.SUCCESS, data);
+        return getResponse(BaseResponse.SUCCESS, data);
     }
 
     /**

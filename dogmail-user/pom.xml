@@ -4,18 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>dogmail</artifactId>
-        <groupId>org.singledog</groupId>
+        <groupId>org.singledog.dogmail</groupId>
         <version>1.0.0-RELEASE</version>
     </parent>
-    <groupId>org.singledog</groupId>
     <artifactId>dogmail-user</artifactId>
     <version>1.0.0-RELEASE</version>
     <name>dogmail-user</name>
     <description>dogmail-user</description>
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>org.singledog.dogmail</groupId>
+            <artifactId>dogmail-mvc-provider</artifactId>
         </dependency>
 
         <dependency>
