@@ -11,20 +11,28 @@
     </parent>
     <!--  the management module  -->
     <modules>
-        <module>dogmail-back</module>
-        <module>dogmail-bus</module>
-        <module>dogmail-cache</module>
-        <module>dogmail-core</module>
-        <module>dogmail-gateway</module>
-        <module>dogmail-mvc-provider</module>
-        <module>dogmail-search</module>
-        <module>dogmail-user</module>
+        <module>dogmall-redis</module>
+        <module>dogmall-mvc</module>
+        <module>dogmall-feign</module>
+        <module>dogmall-pms-provider</module>
+        <module>dogmall-back</module>
+        <module>dogmall-bus</module>
+        <module>dogmall-core</module>
+        <module>dogmall-gateway</module>
+        <module>dogmall-search</module>
+        <module>dogmall-ums</module>
+        <module>dogmall-pms</module>
+        <module>dogmall-wms</module>
+        <module>dogmall-oms</module>
+        <module>dogmall-sms</module>
+        <module>dogmall-generator</module>
+        <module>dogmall-datasource</module>
     </modules>
     <!--  the project describe  -->
-    <groupId>org.singledog.dogmail</groupId>
-    <artifactId>dogmail</artifactId>
+    <groupId>org.singledog.dogmall</groupId>
+    <artifactId>dogmall</artifactId>
     <version>1.0.0-RELEASE</version>
-    <name>dogmail</name>
+    <name>dogmall</name>
     <packaging>pom</packaging>
     <description>A mall dedicated to all single dogs in the world</description>
     <!--  the project version properties  -->
@@ -32,6 +40,11 @@
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <lombok.version>1.18.22</lombok.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
+        <zipkin.version>2.2.8.RELEASE</zipkin.version>
+        <druid.version>1.2.8</druid.version>
+        <swagger2.version>2.9.2</swagger2.version>
+        <fastjson.version>1.2.78</fastjson.version>
     </properties>
     <!--  the dependency version management  -->
     <dependencyManagement>
@@ -57,19 +70,64 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.singledog.dogmail</groupId>
-                <artifactId>dogmail-core</artifactId>
-                <version>1.0.0-RELEASE</version>
+                <groupId>org.singledog.dogmall</groupId>
+                <artifactId>dogmall-core</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.singledog.dogmail</groupId>
-                <artifactId>dogmail-cache</artifactId>
-                <version>1.0.0-RELEASE</version>
+                <groupId>org.singledog.dogmall</groupId>
+                <artifactId>dogmall-mvc</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.singledog.dogmail</groupId>
-                <artifactId>dogmail-mvc-provider</artifactId>
-                <version>1.0.0-RELEASE</version>
+                <groupId>org.singledog.dogmall</groupId>
+                <artifactId>dogmall-feign</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.singledog.dogmall</groupId>
+                <artifactId>dogmall-pms-provider</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.singledog.dogmall</groupId>
+                <artifactId>dogmall-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-zipkin</artifactId>
+                <version>${zipkin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.singledog.dogmall</groupId>
+                <artifactId>dogmall-datasource</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

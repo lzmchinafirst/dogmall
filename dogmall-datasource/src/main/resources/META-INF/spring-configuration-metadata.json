@@ -1,0 +1,48 @@
+{
+  "groups": [
+    {
+      "name": "routing.datasource",
+      "type": "org.singledog.dogmail.datasource.RoutingDatasourceProperties",
+      "sourceType": "org.singledog.dogmail.datasource.RoutingDatasourceProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "routing.datasource.type",
+      "type": "java.lang.String",
+      "description": "The datasource type",
+      "defaultValue": "normal"
+    },
+    {
+      "name": "routing.datasource.write-datasource",
+      "type": "java.util.List<java.lang.String>",
+      "description": "The write datasource list"
+    },
+    {
+      "name": "routing.datasource.catalogue",
+      "type": "java.util.List<org.singledog.dogmail.datasource.RoutingDatasourceProperties.DatasourceCatalogue>",
+      "description": "The datasource catalogue"
+    },{
+      "name": "routing.datasource.catalogue.id",
+      "type": "java.lang.String",
+      "description": "The datasource id"
+    },{
+      "name": "routing.datasource.catalogue.driver-class-name",
+      "type": "java.lang.String",
+      "description": "The datasource class name"
+    },{
+      "name": "routing.datasource.catalogue.jdbc-url",
+      "type": "java.lang.String",
+      "description": "The datasource jdbc url"
+    },{
+      "name": "routing.datasource.catalogue.username",
+      "type": "java.lang.String",
+      "description": "The datasource username"
+    },{
+      "name": "routing.datasource.catalogue.password",
+      "type": "java.lang.String",
+      "description": "The datasource password"
+    }
+  ],
+  "hints": []
+}
