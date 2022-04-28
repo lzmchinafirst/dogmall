@@ -7,19 +7,3 @@ spring:
         group: dogmail
         namespace: ${NACOS_NAMESPACE:10001}
         server-addr: ${NACOS_SERVER_ADDR:192.168.111.132:8848}
-
-routing:
-  datasource:
-    write-datasource: write
-    type: druid
-    catalogue:
-      - id: write
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://192.168.111.132:3306/dogmail_pms?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
-        username: root
-        password: 123456
-      - id: read
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://127.0.0.1:3306/dogmail_pms?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
-        username: root
-        password: woshiniba123

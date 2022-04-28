@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.singledog.dogmail.datasource.RoutingDatasourceAutoConfiguration
+  org.singledog.dogmall.datasource.RoutingDataSourceAutoConfiguration

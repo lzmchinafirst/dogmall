@@ -2,8 +2,8 @@
   "groups": [
     {
       "name": "routing.datasource",
-      "type": "org.singledog.dogmail.datasource.RoutingDatasourceProperties",
-      "sourceType": "org.singledog.dogmail.datasource.RoutingDatasourceProperties"
+      "type": "org.singledog.dogmall.datasource.RoutingDataSourceProperties",
+      "sourceType": "org.singledog.dogmall.datasource.RoutingDataSourceProperties"
     }
   ],
   "properties": [
@@ -14,32 +14,37 @@
       "defaultValue": "normal"
     },
     {
-      "name": "routing.datasource.write-datasource",
+      "name": "routing.datasource.master",
       "type": "java.util.List<java.lang.String>",
       "description": "The write datasource list"
     },
     {
-      "name": "routing.datasource.catalogue",
-      "type": "java.util.List<org.singledog.dogmail.datasource.RoutingDatasourceProperties.DatasourceCatalogue>",
-      "description": "The datasource catalogue"
+      "name": "routing.datasource.slave",
+      "type": "java.util.List<java.lang.String>",
+      "description": "The write datasource list"
+    },
+    {
+      "name": "routing.datasource.list",
+      "type": "java.util.List<org.singledog.dogmall.datasource.RoutingDataSourceProperties.DataSourceCommonMessage>",
+      "description": "The datasource list"
     },{
-      "name": "routing.datasource.catalogue.id",
+      "name": "routing.datasource.list.id",
       "type": "java.lang.String",
       "description": "The datasource id"
     },{
-      "name": "routing.datasource.catalogue.driver-class-name",
+      "name": "routing.datasource.list.driver-class-name",
       "type": "java.lang.String",
       "description": "The datasource class name"
     },{
-      "name": "routing.datasource.catalogue.jdbc-url",
+      "name": "routing.datasource.list.jdbc-url",
       "type": "java.lang.String",
       "description": "The datasource jdbc url"
     },{
-      "name": "routing.datasource.catalogue.username",
+      "name": "routing.datasource.list.username",
       "type": "java.lang.String",
       "description": "The datasource username"
     },{
-      "name": "routing.datasource.catalogue.password",
+      "name": "routing.datasource.list.password",
       "type": "java.lang.String",
       "description": "The datasource password"
     }
