@@ -3,13 +3,11 @@ package org.singledog.dogmall.datasource;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.aop.Advisor;
+import com.zaxxer.hikari.HikariJNDIFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -27,7 +25,7 @@ import org.springframework.context.annotation.Import;
 public class RoutingDataSourceAutoConfiguration {
 
     /**
-     * Config druid datasource
+     * Configure druid datasource
      */
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnClass({DruidDataSource.class, DruidDataSourceFactory.class})
@@ -37,10 +35,10 @@ public class RoutingDataSourceAutoConfiguration {
     }
 
     /**
-     * Config hikari datasource
+     * Configure hikari datasource
      */
     @Configuration(proxyBeanMethods = false)
-    @ConditionalOnClass({HikariDataSource.class})
+    @ConditionalOnClass({HikariDataSource.class, HikariJNDIFactory.class})
     @Import(HikariDataSourceRegister.class)
     static class HikariRoutingDataSourceConfiguration {
 

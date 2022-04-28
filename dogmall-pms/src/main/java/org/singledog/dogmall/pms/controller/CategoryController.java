@@ -22,7 +22,7 @@ import org.singledog.dogmall.pms.service.CategoryService;
  * 商品三级分类
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 @Api(tags = "商品三级分类 管理")

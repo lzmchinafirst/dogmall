@@ -22,7 +22,7 @@ import org.singledog.dogmall.pms.service.CommentService;
  * 商品评价
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 @Api(tags = "商品评价 管理")

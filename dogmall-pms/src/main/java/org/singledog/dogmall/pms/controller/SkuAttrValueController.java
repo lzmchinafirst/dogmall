@@ -22,7 +22,7 @@ import org.singledog.dogmall.pms.service.SkuAttrValueService;
  * sku销售属性&值
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 @Api(tags = "sku销售属性&值 管理")

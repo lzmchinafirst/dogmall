@@ -11,7 +11,7 @@ import lombok.Data;
  * sku销售属性&值
  * 
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 @Data

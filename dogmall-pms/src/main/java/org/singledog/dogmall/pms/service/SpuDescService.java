@@ -11,7 +11,7 @@ import java.util.List;
  * spu信息介绍
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 public interface SpuDescService extends IService<SpuDescEntity> {

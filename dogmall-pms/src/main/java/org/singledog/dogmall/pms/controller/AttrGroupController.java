@@ -22,7 +22,7 @@ import org.singledog.dogmall.pms.service.AttrGroupService;
  * 属性分组
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 @Api(tags = "属性分组 管理")

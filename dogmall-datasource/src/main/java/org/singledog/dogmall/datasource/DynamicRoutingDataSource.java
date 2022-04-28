@@ -1,5 +1,6 @@
 package org.singledog.dogmall.datasource;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.AbstractDataSource;
 import org.springframework.util.Assert;
 
@@ -16,19 +17,56 @@ import java.util.concurrent.*;
  * @author Zheming Liu
  * @since 1.0.0-RELEASE
  */
+@Slf4j
 public class DynamicRoutingDataSource extends AbstractDataSource {
 
-    private final Queue<DataSource> master;
+    /**
+     * Whether fair
+     */
+    private boolean fair;
 
-    private final Queue<DataSource> slave;
+    /**
+     * Master datasource queue
+     */
+    private Queue<DataSource> master = new ArrayBlockingQueue<>(2);
 
+    /**
+     * Slave datasource queue
+     */
+    private Queue<DataSource> slave = new ArrayBlockingQueue<>(2);
+
+    /**
+     * Queue map
+     */
     private final Map<DataSourceType, Queue<DataSource>> DATASOURCE_MAP = new ConcurrentHashMap<>(2);
 
-    public DynamicRoutingDataSource(BlockingQueue<DataSource> master, BlockingQueue<DataSource> slave) {
-        this.master = master == null ? new LinkedBlockingQueue<>(0) : master;
-        this.slave = slave == null ? new LinkedBlockingDeque<>(0) : slave;
+    /**
+     * Create a new {@link DynamicRoutingDataSource}
+     *
+     * @param master master list
+     * @param slave  slave list
+     * @param fair   whether fair
+     */
+    public DynamicRoutingDataSource(BlockingQueue<DataSource> master, BlockingQueue<DataSource> slave, boolean fair) {
+        this.fair = fair;
+        if (master != null) {
+            this.master = master;
+        }
+        if (slave != null) {
+            this.slave = slave;
+        }
         DATASOURCE_MAP.put(DataSourceType.MASTER, this.master);
         DATASOURCE_MAP.put(DataSourceType.SLAVE, this.slave);
+    }
+
+    /**
+     * Create a new {@link DynamicRoutingDataSource}
+     *
+     * @param master master list
+     * @param slave  slave list
+     */
+    public DynamicRoutingDataSource(BlockingQueue<DataSource> master, BlockingQueue<DataSource> slave) {
+        this(master, slave, false);
     }
 
     @Override
@@ -45,6 +83,12 @@ public class DynamicRoutingDataSource extends AbstractDataSource {
         return datasource == null ? null : datasource.getConnection(username, password);
     }
 
+    /**
+     * Get the datasource from queue
+     *
+     * @param queue the queue contains datasource
+     * @return datasource
+     */
     private DataSource getDatasource(Queue<DataSource> queue) {
         DataSource dataSource = null;
         if (queue == null || queue.size() == 0) {
@@ -52,7 +96,12 @@ public class DynamicRoutingDataSource extends AbstractDataSource {
         } else if (queue.size() == 1) {
             return queue.peek();
         }
-        synchronized (DATASOURCE_MAP) {
+        if (fair) {
+            synchronized (DATASOURCE_MAP) {
+                dataSource = queue.poll();
+                queue.add(dataSource);
+            }
+        } else {
             dataSource = queue.poll();
             queue.add(dataSource);
         }

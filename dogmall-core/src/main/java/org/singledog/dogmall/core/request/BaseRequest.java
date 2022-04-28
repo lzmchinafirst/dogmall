@@ -48,17 +48,17 @@ public class BaseRequest {
     /**
      * The page size
      */
-    private Integer pageSize;
+    private int pageSize;
 
     /**
      * The page number
      */
-    private Integer pageNum;
+    private int pageNum;
 
     /**
      * Whether use page
      */
-    private Boolean whetherPage;
+    private boolean whetherPage;
 
     /**
      * Query the result
@@ -95,9 +95,7 @@ public class BaseRequest {
                 queryWrapper.eq(split[0], split[1]);
             }
         }
-        if (whetherPage == null) {
-            return baseMapper.selectList(queryWrapper);
-        } else if (whetherPage) {
+        if (whetherPage) {
             Page<T> page = new Page<>(pageNum, pageSize);
             baseMapper.selectPage(page, queryWrapper);
             return page.getRecords();
@@ -105,5 +103,4 @@ public class BaseRequest {
             return baseMapper.selectList(queryWrapper);
         }
     }
-
 }

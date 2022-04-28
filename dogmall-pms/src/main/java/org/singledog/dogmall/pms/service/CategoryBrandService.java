@@ -10,7 +10,7 @@ import java.util.List;
  * 品牌分类关联
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 public interface CategoryBrandService extends IService<CategoryBrandEntity> {

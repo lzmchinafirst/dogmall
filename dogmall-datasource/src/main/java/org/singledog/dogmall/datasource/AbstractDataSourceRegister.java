@@ -32,7 +32,7 @@ public abstract class AbstractDataSourceRegister {
         if (slave != null && slave.size() > 0) {
             slaveQueue = new ArrayBlockingQueue<>(slave.size());
             for (String s : slave) {
-                masterQueue.add(createDataSourceById(s));
+                slaveQueue.add(createDataSourceById(s));
             }
         }
         return new DynamicRoutingDataSource(masterQueue, slaveQueue);
@@ -47,7 +47,8 @@ public abstract class AbstractDataSourceRegister {
     protected abstract DataSource createDataSourceById(String id);
 
     /**
-     * Register the {@link DynamicRoutingDataSource},please use it with {@link org.springframework.context.annotation.Bean}
+     * Register the {@link DynamicRoutingDataSource},
+     * please use it with {@link org.springframework.context.annotation.Bean}
      *
      * @return {@link DynamicRoutingDataSource}
      */

@@ -23,7 +23,7 @@ import org.singledog.dogmall.pms.service.SpuAttrValueService;
  * spu属性值
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 @Api(tags = "spu属性值 管理")

@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * The project response
  *
- * @param <T> the {{@link #data}} type
+ * @param <T> the result type
  * @author Zheming Liu
  * @see {@link Response}
  * @since 1.0.0-RELEASE

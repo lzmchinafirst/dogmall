@@ -2,6 +2,9 @@ package org.singledog.dogmall.core.response;
 
 /**
  * Business exception
+ *
+ * @author Zheming Liu
+ * @since 1.0.0-RELEASE
  */
 public class BusinessException extends RuntimeException implements Response {
 

@@ -7,11 +7,9 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
-import org.springframework.aop.PointcutAdvisor;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.aop.support.AbstractPointcutAdvisor;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.core.Ordered;
 
 import java.lang.reflect.Method;
 
@@ -22,8 +20,7 @@ import java.lang.reflect.Method;
  * @since 1.0.0-RELEASE
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
-public class DataSourceAdvisor implements PointcutAdvisor {
+public class DataSourceAdvisor extends AbstractPointcutAdvisor implements InitializingBean {
 
     /**
      * Get the proxy method interceptor
@@ -34,7 +31,6 @@ public class DataSourceAdvisor implements PointcutAdvisor {
             @Override
             public Object invoke(MethodInvocation invocation) throws Throwable {
                 Object proceed = null;
-                long start = System.currentTimeMillis();
                 Method method = null;
                 try {
                     method = invocation.getMethod();
@@ -45,17 +41,10 @@ public class DataSourceAdvisor implements PointcutAdvisor {
                     proceed = invocation.proceed();
                 } finally {
                     DataSourceContext.removeDatasource();
-                    long end = System.currentTimeMillis();
-                    log.info("The proxy method {} spend {} ms", method == null ? null : method.getName(), end - start);
                 }
                 return proceed;
             }
         };
-    }
-
-    @Override
-    public boolean isPerInstance() {
-        return false;
     }
 
     /**
@@ -92,11 +81,10 @@ public class DataSourceAdvisor implements PointcutAdvisor {
     }
 
     /**
-     * Register the processor
+     * Set the advisor order
      */
-    @Bean
-    @ConditionalOnMissingBean(DefaultAdvisorAutoProxyCreator.class)
-    public DefaultAdvisorAutoProxyCreator registerProxyCreator() {
-        return new DefaultAdvisorAutoProxyCreator();
+    @Override
+    public void afterPropertiesSet() {
+        setOrder(Ordered.LOWEST_PRECEDENCE - 1);
     }
 }

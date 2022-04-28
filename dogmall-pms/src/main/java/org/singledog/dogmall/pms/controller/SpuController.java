@@ -22,7 +22,7 @@ import org.singledog.dogmall.pms.service.SpuService;
  * spu信息
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 @Api(tags = "spu信息 管理")

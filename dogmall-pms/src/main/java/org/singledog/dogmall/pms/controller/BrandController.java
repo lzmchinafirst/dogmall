@@ -25,7 +25,7 @@ import org.singledog.dogmall.pms.service.BrandService;
  * 品牌
  *
  * @author Zheming Liu
- * @email dogmail@qq.com
+ * @email dogmall@qq.com
  * @date 2022-04-23 19:43:11
  */
 @Api(tags = "品牌 管理")
@@ -44,10 +44,9 @@ public class BrandController {
      */
     @GetMapping
     @ApiOperation("分页查询")
-    @DataSource(DataSourceType.SLAVE)
+    @DataSource(DataSourceType.MASTER)
     public ResponseEntity<List<BrandEntity>> queryBrandByPage(BaseRequest request) {
         List<BrandEntity> brandEntities = brandService.query(request);
-        int a = 1 / 0;
         return ResponseFactory.getSuccessResponse(brandEntities);
     }
 
@@ -69,6 +68,7 @@ public class BrandController {
     @ApiOperation("保存")
     public ResponseEntity save(@RequestBody BrandEntity brand) {
         brandService.save(brand);
+        int a = 1 / 0;
         return ResponseFactory.getSuccessResponse();
     }
 
