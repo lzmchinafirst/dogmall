@@ -15,6 +15,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.singledog.dogmall</groupId>
+            <artifactId>dogmall-sms-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>

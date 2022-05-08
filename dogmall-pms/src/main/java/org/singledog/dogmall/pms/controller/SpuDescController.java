@@ -4,8 +4,8 @@ import java.util.List;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.singledog.dogmall.core.request.BaseRequest;
-import org.singledog.dogmall.core.response.ResponseEntity;
+import org.singledog.dogmall.core.request.PageRequest;
+import org.singledog.dogmall.core.response.Response;
 import org.singledog.dogmall.core.response.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.singledog.dogmall.pms.entity.SpuDescEntity;
 import org.singledog.dogmall.pms.service.SpuDescService;
 
 /**
  * spu信息介绍
  *
- * @author Zheming Liu
+ * @author ZheMing Liu
  * @email dogmall@qq.com
- * @date 2022-04-23 19:43:11
+ * @date 2022-05-03 20:38:58
  */
 @Api(tags = "spu信息介绍 管理")
 @RestController
@@ -38,9 +37,8 @@ public class SpuDescController {
      */
     @GetMapping
     @ApiOperation("分页查询")
-    public ResponseEntity<List<SpuDescEntity>> querySpuDescByPage(BaseRequest baseRequest) {
-        List<SpuDescEntity> spuDescEntities = spuDescService.queryPage(baseRequest);
-        return ResponseFactory.getSuccessResponse(spuDescEntities);
+    public Response<List<SpuDescEntity>> querySpuDescByPage(PageRequest request) {
+        return spuDescService.queryPage(request);
     }
 
 
@@ -49,9 +47,9 @@ public class SpuDescController {
      */
     @GetMapping("{spuId}")
     @ApiOperation("详情查询")
-    public ResponseEntity<SpuDescEntity> querySpuDescById(@PathVariable("spuId") Long spuId) {
-        SpuDescEntity spuDesc = spuDescService.getById(spuId);
-        return ResponseFactory.getSuccessResponse(spuDesc);
+    public Response<SpuDescEntity> querySpuDescById(@PathVariable("spuId") Long spuId) {
+        SpuDescEntity entity = spuDescService.getById(spuId);
+        return ResponseFactory.getSuccessResponse(entity);
     }
 
     /**
@@ -59,7 +57,7 @@ public class SpuDescController {
      */
     @PostMapping
     @ApiOperation("保存")
-    public ResponseEntity<Object> save(@RequestBody SpuDescEntity spuDesc) {
+    public Response save(@RequestBody SpuDescEntity spuDesc) {
         spuDescService.save(spuDesc);
         return ResponseFactory.getSuccessResponse();
     }
@@ -69,7 +67,7 @@ public class SpuDescController {
      */
     @PostMapping("/update")
     @ApiOperation("修改")
-    public ResponseEntity update(@RequestBody SpuDescEntity spuDesc) {
+    public Response update(@RequestBody SpuDescEntity spuDesc) {
         spuDescService.updateById(spuDesc);
         return ResponseFactory.getSuccessResponse();
     }
@@ -79,7 +77,7 @@ public class SpuDescController {
      */
     @PostMapping("/delete")
     @ApiOperation("删除")
-    public ResponseEntity delete(@RequestBody List<Long> spuIds) {
+    public Response delete(@RequestBody List<Long> spuIds) {
         spuDescService.removeByIds(spuIds);
         return ResponseFactory.getSuccessResponse();
     }

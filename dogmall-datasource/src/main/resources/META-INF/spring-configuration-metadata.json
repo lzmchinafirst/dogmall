@@ -11,7 +11,7 @@
       "name": "routing.datasource.type",
       "type": "java.lang.String",
       "description": "The datasource type",
-      "defaultValue": "normal"
+      "defaultValue": "hikari"
     },
     {
       "name": "routing.datasource.master",

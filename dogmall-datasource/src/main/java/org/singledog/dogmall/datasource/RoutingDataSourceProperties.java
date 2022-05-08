@@ -7,12 +7,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.List;
 
 /**
- * The {@link DynamicRoutingDataSource} config properties,the son class
- * {@link DataSourceCommonMessage} is just a common configuration,if you
+ * The {@link DynamicRoutingDataSource} bean properties,the son class
+ * {@link DataSourceCommonMessage} is just a common advisor,if you
  * want to extend the {@link javax.sql.DataSource} function,please define
- * the configuration and change the register like {@link HikariDataSourceRegister}
+ * the advisor and change the register like {@link HikariDataSourceRegister}
  *
- * @author Zheming Liu
+ * @author ZheMing Liu
  * @since 1.0.0-RELEASE
  */
 @Data
@@ -25,7 +25,7 @@ public class RoutingDataSourceProperties {
     /**
      * The datasource type,the default datasource for spring is hikari
      */
-    private String type;
+    private String type = "hikari";
 
     /**
      * The master datasource list

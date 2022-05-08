@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        name: dogmall-sms
+        group: dogmall
+        namespace: ${NACOS_NAMESPACE:10001}
+        server-addr: ${NACOS_SERVER_ADDR:192.168.111.132:8848}
+

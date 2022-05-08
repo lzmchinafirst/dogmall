@@ -2,9 +2,12 @@ package org.singledog.dogmall.core.request;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.singledog.dogmall.core.response.ResponseEntity;
+import org.singledog.dogmall.core.response.ResponseFactory;
 
 import java.util.List;
 
@@ -13,52 +16,20 @@ import java.util.List;
  * just receive it on controller(This class can just use to
  * one table query).
  *
- * @author Zheming Liu
- * @see javax.management.Query
+ * @author ZheMing Liu
  * @since 1.0.0-RELEASE
  */
 @Data
 @ToString
-public class BaseRequest {
-    /**
-     * Greater than
-     */
-    private List<String> gt;
+@AllArgsConstructor
+@NoArgsConstructor
+public class BaseRequest extends RequestElement implements Request, PluginHandler<QueryWrapper> {
 
     /**
-     * Lower than
+     * If you don't want to use {@link RequestElement} to handle your wrapper,
+     * you can custom handle rule.
      */
-    private List<String> lt;
-
-    /**
-     * Greater or equal
-     */
-    private List<String> ge;
-
-    /**
-     * Lower or equal
-     */
-    private List<String> le;
-
-    /**
-     * Equal
-     */
-    private List<String> eq;
-
-    /**
-     * The page size
-     */
-    private int pageSize;
-
-    /**
-     * The page number
-     */
-    private int pageNum;
-
-    /**
-     * Whether use page
-     */
-    private boolean whetherPage;
+    private PluginHandler<QueryWrapper> handler;
 
     /**
      * Query the result
@@ -67,40 +38,17 @@ public class BaseRequest {
      * @param <T>        result type
      * @return query result
      */
-    public <T> List<T> query(BaseMapper<T> baseMapper) {
-        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
-        if (gt != null && gt.size() > 0) {
-            for (String gt : gt) {
-                String[] split = gt.split("-");
-                queryWrapper.gt(split[0], split[1]);
-            }
-        } else if (lt != null && lt.size() > 0) {
-            for (String lt : lt) {
-                String[] split = lt.split("-");
-                queryWrapper.lt(split[0], split[1]);
-            }
-        } else if (ge != null && ge.size() > 0) {
-            for (String ge : ge) {
-                String[] split = ge.split("-");
-                queryWrapper.ge(split[0], split[1]);
-            }
-        } else if (le != null && le.size() > 0) {
-            for (String le : le) {
-                String[] split = le.split("-");
-                queryWrapper.le(split[0], split[1]);
-            }
-        } else if (eq != null && eq.size() > 0) {
-            for (String eq : eq) {
-                String[] split = eq.split("-");
-                queryWrapper.eq(split[0], split[1]);
-            }
-        }
-        if (whetherPage) {
-            Page<T> page = new Page<>(pageNum, pageSize);
-            baseMapper.selectPage(page, queryWrapper);
-            return page.getRecords();
-        } else {
-            return baseMapper.selectList(queryWrapper);
+    @Override
+    public <T> ResponseEntity<List<T>> query(BaseMapper<T> baseMapper) {
+        QueryWrapper<T> queryWrapper = getQueryWrapper(baseMapper);
+        handlePlugin(queryWrapper);
+        return ResponseFactory.getSuccessResponse(baseMapper.selectList(queryWrapper));
+    }
+
+    @Override
+    public void handlePlugin(QueryWrapper plugin) {
+        if (handler != null) {
+            handler.handlePlugin(plugin);
         }
     }
 }

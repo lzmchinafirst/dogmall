@@ -4,8 +4,8 @@ import java.util.List;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.singledog.dogmall.core.request.BaseRequest;
-import org.singledog.dogmall.core.response.ResponseEntity;
+import org.singledog.dogmall.core.request.PageRequest;
+import org.singledog.dogmall.core.response.Response;
 import org.singledog.dogmall.core.response.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.singledog.dogmall.pms.entity.CommentEntity;
 import org.singledog.dogmall.pms.service.CommentService;
 
 /**
  * 商品评价
  *
- * @author Zheming Liu
+ * @author ZheMing Liu
  * @email dogmall@qq.com
- * @date 2022-04-23 19:43:11
+ * @date 2022-05-03 20:38:58
  */
 @Api(tags = "商品评价 管理")
 @RestController
@@ -38,19 +37,19 @@ public class CommentController {
      */
     @GetMapping
     @ApiOperation("分页查询")
-    public ResponseEntity<List<CommentEntity>> queryCommentByPage(BaseRequest request){
-        List<CommentEntity> commentEntities = commentService.query(request);
-        return ResponseFactory.getSuccessResponse(commentEntities);
+    public Response<List<CommentEntity>> queryCommentByPage(PageRequest request) {
+        return commentService.queryPage(request);
     }
+
 
     /**
      * 信息
      */
     @GetMapping("{id}")
     @ApiOperation("详情查询")
-    public ResponseEntity<CommentEntity> queryCommentById(@PathVariable("id") Long id){
-		CommentEntity comment = commentService.getById(id);
-        return ResponseFactory.getSuccessResponse();
+    public Response<CommentEntity> queryCommentById(@PathVariable("id") Long id) {
+        CommentEntity entity = commentService.getById(id);
+        return ResponseFactory.getSuccessResponse(entity);
     }
 
     /**
@@ -58,8 +57,8 @@ public class CommentController {
      */
     @PostMapping
     @ApiOperation("保存")
-    public ResponseEntity save(@RequestBody CommentEntity comment){
-		commentService.save(comment);
+    public Response save(@RequestBody CommentEntity comment) {
+        commentService.save(comment);
         return ResponseFactory.getSuccessResponse();
     }
 
@@ -68,8 +67,8 @@ public class CommentController {
      */
     @PostMapping("/update")
     @ApiOperation("修改")
-    public ResponseEntity update(@RequestBody CommentEntity comment){
-		commentService.updateById(comment);
+    public Response update(@RequestBody CommentEntity comment) {
+        commentService.updateById(comment);
         return ResponseFactory.getSuccessResponse();
     }
 
@@ -78,8 +77,8 @@ public class CommentController {
      */
     @PostMapping("/delete")
     @ApiOperation("删除")
-    public ResponseEntity delete(@RequestBody List<Long> ids){
-		commentService.removeByIds(ids);
+    public Response delete(@RequestBody List<Long> ids) {
+        commentService.removeByIds(ids);
         return ResponseFactory.getSuccessResponse();
     }
 

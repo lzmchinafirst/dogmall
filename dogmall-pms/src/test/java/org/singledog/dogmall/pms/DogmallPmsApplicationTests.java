@@ -18,11 +18,5 @@ class DogmallPmsApplicationTests {
 
     @Test
     void contextLoads() {
-        BaseRequest request = new BaseRequest();
-        request.setPageNum(1);
-        request.setPageSize(10);
-        ResponseEntity<List<BrandEntity>> listResponseEntity = brandController.queryBrandByPage(request);
-        System.out.println(listResponseEntity.getData());
     }
-
 }

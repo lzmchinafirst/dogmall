@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Hikari datasource register
  *
- * @author Zheming Liu
+ * @author ZheMing Liu
  * @since 1.0.0-RELEASE
  */
 @ConditionalOnProperty(prefix = "routing.datasource", name = "type", havingValue = "hikari")
@@ -30,7 +30,7 @@ public class HikariDataSourceRegister extends AbstractDataSourceRegister {
     }
 
     @Override
-    protected DataSource createDataSourceById(String id) {
+    protected DataSourceHolder createDataSourceById(String id) {
         List<RoutingDataSourceProperties.DataSourceCommonMessage> datasourceList = basicProperties.getList();
         if (datasourceList == null || datasourceList.size() == 0) {
             return null;
@@ -42,7 +42,7 @@ public class HikariDataSourceRegister extends AbstractDataSourceRegister {
                 dataSource.setUsername(datasourceCommonMessage.getUsername());
                 dataSource.setPassword(datasourceCommonMessage.getPassword());
                 dataSource.setDriverClassName(datasourceCommonMessage.getDriverClassName());
-                return dataSource;
+                return new DataSourceHolder(id, dataSource);
             }
         }
         return null;

@@ -1,6 +1,6 @@
 package org.singledog.dogmall.redis.annotation;
 
-import org.singledog.dogmall.redis.entity.RedisStringJsonCacheEntity;
+import org.singledog.dogmall.redis.bean.RedisStringJsonCacheEntity;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -45,6 +45,11 @@ public @interface Cache {
      * Whether create random expire time
      */
     boolean expireWhetherRandom() default false;
+
+    /**
+     * The delay delete model
+     */
+    String delayModel() default "normal";
 
     /**
      * Whether delay delete

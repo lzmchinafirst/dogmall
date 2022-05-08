@@ -8,7 +8,7 @@ import java.util.concurrent.BlockingQueue;
 /**
  * The abstract datasource register
  *
- * @author Zheming Liu
+ * @author ZheMing Liu
  * @since 1.0.0-RELEASE
  */
 public abstract class AbstractDataSourceRegister {
@@ -21,30 +21,34 @@ public abstract class AbstractDataSourceRegister {
      * @return {@link DynamicRoutingDataSource}
      */
     protected DataSource getDynamicRoutingDatasource(List<String> master, List<String> slave) {
-        BlockingQueue<DataSource> masterQueue = null;
-        BlockingQueue<DataSource> slaveQueue = null;
+        BlockingQueue<DataSourceHolder> masterQueue = null;
+        BlockingQueue<DataSourceHolder> slaveQueue = null;
         if (master != null && master.size() > 0) {
             masterQueue = new ArrayBlockingQueue<>(master.size());
             for (String m : master) {
-                masterQueue.add(createDataSourceById(m));
+                DataSourceHolder dataSourceHolder = createDataSourceById(m);
+                dataSourceAfterInitial(dataSourceHolder);
+                masterQueue.add(dataSourceHolder);
             }
         }
         if (slave != null && slave.size() > 0) {
             slaveQueue = new ArrayBlockingQueue<>(slave.size());
             for (String s : slave) {
-                slaveQueue.add(createDataSourceById(s));
+                DataSourceHolder dataSourceHolder = createDataSourceById(s);
+                dataSourceAfterInitial(dataSourceHolder);
+                slaveQueue.add(dataSourceHolder);
             }
         }
         return new DynamicRoutingDataSource(masterQueue, slaveQueue);
     }
 
     /**
-     * Create target datasource by id
+     * Create {@link DataSourceHolder}
      *
      * @param id the datasource id
-     * @return {@link DataSource}
+     * @return {@link DataSourceHolder}
      */
-    protected abstract DataSource createDataSourceById(String id);
+    protected abstract DataSourceHolder createDataSourceById(String id);
 
     /**
      * Register the {@link DynamicRoutingDataSource},
@@ -53,4 +57,14 @@ public abstract class AbstractDataSourceRegister {
      * @return {@link DynamicRoutingDataSource}
      */
     public abstract DataSource registerDynamicRoutingDataSource();
+
+    /**
+     * The method is to extend datasource,
+     * rewrite the method if you want to extend your datasource.
+     *
+     * @param dataSourceHolder hold the target datasource and its id
+     */
+    protected void dataSourceAfterInitial(DataSourceHolder dataSourceHolder) {
+
+    }
 }

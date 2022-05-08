@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.AbstractDataSource;
 import org.springframework.util.Assert;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
@@ -14,7 +13,7 @@ import java.util.concurrent.*;
 /**
  * Routing datasource
  *
- * @author Zheming Liu
+ * @author ZheMing Liu
  * @since 1.0.0-RELEASE
  */
 @Slf4j
@@ -28,17 +27,32 @@ public class DynamicRoutingDataSource extends AbstractDataSource {
     /**
      * Master datasource queue
      */
-    private Queue<DataSource> master = new ArrayBlockingQueue<>(2);
+    private Queue<DataSourceHolder> master = new ArrayBlockingQueue<>(2);
 
     /**
      * Slave datasource queue
      */
-    private Queue<DataSource> slave = new ArrayBlockingQueue<>(2);
+    private Queue<DataSourceHolder> slave = new ArrayBlockingQueue<>(2);
 
     /**
-     * Queue map
+     * Master and slave datasource queue map
      */
-    private final Map<DataSourceType, Queue<DataSource>> DATASOURCE_MAP = new ConcurrentHashMap<>(2);
+    private static final Map<String, Queue<DataSourceHolder>> MS_MAP = new ConcurrentHashMap<>(2);
+
+    /**
+     * Id and datasource map
+     */
+    private static final Map<String, DataSourceHolder> ID_MAP = new ConcurrentHashMap<>(2);
+
+    /**
+     * Create a new {@link DynamicRoutingDataSource}
+     *
+     * @param master master list
+     * @param slave  slave list
+     */
+    public DynamicRoutingDataSource(BlockingQueue<DataSourceHolder> master, BlockingQueue<DataSourceHolder> slave) {
+        this(master, slave, false);
+    }
 
     /**
      * Create a new {@link DynamicRoutingDataSource}
@@ -47,7 +61,7 @@ public class DynamicRoutingDataSource extends AbstractDataSource {
      * @param slave  slave list
      * @param fair   whether fair
      */
-    public DynamicRoutingDataSource(BlockingQueue<DataSource> master, BlockingQueue<DataSource> slave, boolean fair) {
+    public DynamicRoutingDataSource(BlockingQueue<DataSourceHolder> master, BlockingQueue<DataSourceHolder> slave, boolean fair) {
         this.fair = fair;
         if (master != null) {
             this.master = master;
@@ -55,56 +69,67 @@ public class DynamicRoutingDataSource extends AbstractDataSource {
         if (slave != null) {
             this.slave = slave;
         }
-        DATASOURCE_MAP.put(DataSourceType.MASTER, this.master);
-        DATASOURCE_MAP.put(DataSourceType.SLAVE, this.slave);
-    }
-
-    /**
-     * Create a new {@link DynamicRoutingDataSource}
-     *
-     * @param master master list
-     * @param slave  slave list
-     */
-    public DynamicRoutingDataSource(BlockingQueue<DataSource> master, BlockingQueue<DataSource> slave) {
-        this(master, slave, false);
+        MS_MAP.put("master", this.master);
+        MS_MAP.put("slave", this.slave);
+        for (DataSourceHolder ms : master) {
+            ID_MAP.put(ms.getId(), ms);
+        }
+        for (DataSourceHolder sl : slave) {
+            ID_MAP.put(sl.getId(), sl);
+        }
     }
 
     @Override
     public Connection getConnection() throws SQLException {
-        DataSource datasource = getDatasource(DATASOURCE_MAP.get(DataSourceContext.getDatasourceType()));
-        return datasource == null ? null : datasource.getConnection();
+        DataSourceHolder dataSourceHolder = getDatasource();
+        if (dataSourceHolder == null) {
+            return null;
+        }
+        log.info("The thread {} datasource is {}", Thread.currentThread().getName(), dataSourceHolder.getId());
+        return dataSourceHolder.getDataSource().getConnection();
     }
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
         Assert.hasText(username, "The username is blank");
         Assert.hasText(password, "The password is blank");
-        DataSource datasource = getDatasource(DATASOURCE_MAP.get(DataSourceContext.getDatasourceType()));
-        return datasource == null ? null : datasource.getConnection(username, password);
+        DataSourceHolder dataSourceHolder = getDatasource();
+        if (dataSourceHolder == null) {
+            return null;
+        }
+        log.info("The thread {} datasource is {}", Thread.currentThread().getName(), dataSourceHolder.getId());
+        return dataSourceHolder.getDataSource().getConnection(username, password);
     }
 
     /**
-     * Get the datasource from queue
+     * Get the datasource
      *
-     * @param queue the queue contains datasource
-     * @return datasource
+     * @return {@link DataSourceHolder}
      */
-    private DataSource getDatasource(Queue<DataSource> queue) {
-        DataSource dataSource = null;
+    private DataSourceHolder getDatasource() {
+        DataSourceHolder dataSourceHolder = null;
+        DataSourceLocationHolder holder = DataSourceLocationContext.getDataSourceLocation();
+        DataSourceLocationMode mode = holder.getMode();
+        Queue<DataSourceHolder> queue = null;
+        if (mode == DataSourceLocationMode.ID) {
+            return ID_MAP.get(holder.getKey());
+        } else {
+            queue = MS_MAP.get(holder.getKey());
+        }
         if (queue == null || queue.size() == 0) {
-            return dataSource;
+            return dataSourceHolder;
         } else if (queue.size() == 1) {
             return queue.peek();
         }
         if (fair) {
-            synchronized (DATASOURCE_MAP) {
-                dataSource = queue.poll();
-                queue.add(dataSource);
+            synchronized (MS_MAP) {
+                dataSourceHolder = queue.poll();
+                queue.add(dataSourceHolder);
             }
         } else {
-            dataSource = queue.poll();
-            queue.add(dataSource);
+            dataSourceHolder = queue.poll();
+            queue.add(dataSourceHolder);
         }
-        return dataSource;
+        return dataSourceHolder;
     }
 }

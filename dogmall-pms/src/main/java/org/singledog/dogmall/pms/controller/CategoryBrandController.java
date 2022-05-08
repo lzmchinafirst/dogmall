@@ -4,8 +4,8 @@ import java.util.List;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.singledog.dogmall.core.request.BaseRequest;
-import org.singledog.dogmall.core.response.ResponseEntity;
+import org.singledog.dogmall.core.request.PageRequest;
+import org.singledog.dogmall.core.response.Response;
 import org.singledog.dogmall.core.response.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.singledog.dogmall.pms.entity.CategoryBrandEntity;
 import org.singledog.dogmall.pms.service.CategoryBrandService;
 
 /**
  * 品牌分类关联
  *
- * @author Zheming Liu
+ * @author ZheMing Liu
  * @email dogmall@qq.com
- * @date 2022-04-23 19:43:11
+ * @date 2022-05-03 20:38:58
  */
 @Api(tags = "品牌分类关联 管理")
 @RestController
@@ -38,9 +37,8 @@ public class CategoryBrandController {
      */
     @GetMapping
     @ApiOperation("分页查询")
-    public ResponseEntity<List<CategoryBrandEntity>> queryCategoryBrandByPage(BaseRequest request) {
-        List<CategoryBrandEntity> categoryBrandEntities = categoryBrandService.query(request);
-        return ResponseFactory.getSuccessResponse(categoryBrandEntities);
+    public Response<List<CategoryBrandEntity>> queryCategoryBrandByPage(PageRequest request) {
+        return categoryBrandService.queryPage(request);
     }
 
 
@@ -49,9 +47,9 @@ public class CategoryBrandController {
      */
     @GetMapping("{id}")
     @ApiOperation("详情查询")
-    public ResponseEntity<CategoryBrandEntity> queryCategoryBrandById(@PathVariable("id") Long id) {
-        CategoryBrandEntity categoryBrand = categoryBrandService.getById(id);
-        return ResponseFactory.getSuccessResponse(categoryBrand);
+    public Response<CategoryBrandEntity> queryCategoryBrandById(@PathVariable("id") Long id) {
+        CategoryBrandEntity entity = categoryBrandService.getById(id);
+        return ResponseFactory.getSuccessResponse(entity);
     }
 
     /**
@@ -59,7 +57,7 @@ public class CategoryBrandController {
      */
     @PostMapping
     @ApiOperation("保存")
-    public ResponseEntity<Object> save(@RequestBody CategoryBrandEntity categoryBrand) {
+    public Response save(@RequestBody CategoryBrandEntity categoryBrand) {
         categoryBrandService.save(categoryBrand);
         return ResponseFactory.getSuccessResponse();
     }
@@ -69,7 +67,7 @@ public class CategoryBrandController {
      */
     @PostMapping("/update")
     @ApiOperation("修改")
-    public ResponseEntity update(@RequestBody CategoryBrandEntity categoryBrand) {
+    public Response update(@RequestBody CategoryBrandEntity categoryBrand) {
         categoryBrandService.updateById(categoryBrand);
         return ResponseFactory.getSuccessResponse();
     }
@@ -79,7 +77,7 @@ public class CategoryBrandController {
      */
     @PostMapping("/delete")
     @ApiOperation("删除")
-    public ResponseEntity delete(@RequestBody List<Long> ids) {
+    public Response delete(@RequestBody List<Long> ids) {
         categoryBrandService.removeByIds(ids);
         return ResponseFactory.getSuccessResponse();
     }

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.LocalDateTime;
 
 /**
- * Mybatis-plus configuration
+ * Mybatis-plus advisor
  *
  * @author Zheming Liu
  * @since 1.0.0-RELEASE
@@ -39,8 +39,9 @@ public class MybatisPlusConfig {
         return new MetaObjectHandler() {
             @Override
             public void insertFill(MetaObject metaObject) {
-                this.setFieldValByName("createTime", LocalDateTime.now(), metaObject);
-                this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+                LocalDateTime now = LocalDateTime.now();
+                this.setFieldValByName("createTime", now, metaObject);
+                this.setFieldValByName("updateTime", now, metaObject);
             }
 
             @Override

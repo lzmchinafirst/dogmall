@@ -16,8 +16,7 @@ public class BusinessException extends RuntimeException implements Response {
     }
 
     protected BusinessException(Integer code, String message) {
-        super(message);
-        this.response = new Response() {
+        this(new Response() {
             @Override
             public Integer getCode() {
                 return code;
@@ -32,7 +31,12 @@ public class BusinessException extends RuntimeException implements Response {
             public Boolean getSuccess() {
                 return false;
             }
-        };
+
+            @Override
+            public Object getData() {
+                return null;
+            }
+        });
     }
 
     @Override
@@ -43,5 +47,10 @@ public class BusinessException extends RuntimeException implements Response {
     @Override
     public Boolean getSuccess() {
         return response.getSuccess();
+    }
+
+    @Override
+    public Object getData() {
+        return response.getData();
     }
 }

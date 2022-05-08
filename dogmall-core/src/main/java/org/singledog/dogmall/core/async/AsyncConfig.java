@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import java.util.concurrent.Executor;
 
 /**
- * spring-async config
+ * spring-listener bean
  *
  * @author Zheming Liu
  * @since 1.0.0-RELEASE

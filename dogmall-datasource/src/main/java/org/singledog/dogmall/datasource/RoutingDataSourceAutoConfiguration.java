@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.zaxxer.hikari.HikariDataSource;
 import com.zaxxer.hikari.HikariJNDIFactory;
+import org.singledog.dogmall.datasource.advisor.DataSourceAdvisor;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Import;
  * Routing datasource auto configuration,
  * you can extend your datasource type.
  *
- * @author Zheming Liu
+ * @author ZheMing Liu
  * @since 1.0.0-RELEASE
  */
 @Import(DataSourceAdvisor.class)

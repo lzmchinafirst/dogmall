@@ -1,9 +1,7 @@
 package org.singledog.dogmall.core.response;
 
-import java.util.ArrayList;
-
 /**
- * The factory of response,this factory create {@link ResponseEntity}
+ * The factory of response.
  *
  * @author Zheming Liu
  * @since 1.0.0-RELEASE
@@ -19,7 +17,7 @@ public class ResponseFactory {
      * @param response {@link Response}
      */
     public static ResponseEntity getResponse(Response response) {
-        return getResponse(response.getCode(), response.getMessage(), response.getSuccess(), new ArrayList<>());
+        return getResponse(response.getCode(), response.getMessage(), response.getSuccess(), response.getData());
     }
 
     /**
@@ -61,7 +59,18 @@ public class ResponseFactory {
      * @return {@link ResponseEntity}
      */
     public static ResponseEntity getSuccessResponse() {
-        return getResponse(BaseResponse.SUCCESS, new ArrayList<>());
+        return getResponse(BaseResponse.SUCCESS, null);
+    }
+
+    /**
+     * Get success response page
+     *
+     * @param data the response data
+     * @param <T>  the data type
+     * @return {@link ResponsePageEntity}
+     */
+    public static <T> ResponsePageEntity<T> getSuccessPageResponse(T data, Long pages, Long current, Long size, Long total) {
+        return new ResponsePageEntity<>(getSuccessResponse(data), pages, current, size, total);
     }
 
     /**

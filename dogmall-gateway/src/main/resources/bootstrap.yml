@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: dogmall-gateway
   cloud:
     nacos:
       config:
@@ -8,8 +6,4 @@ spring:
         name: dogmall-gateway
         group: dogmall
         namespace: ${NACOS_NAMESPACE:10001}
-        server-addr: ${NACOS_SERVER_ADDR:192.168.111.132:8848}
-      discovery:
-        namespace: ${NACOS_NAMESPACE:10001}
-        group: dogmall
         server-addr: ${NACOS_SERVER_ADDR:192.168.111.132:8848}

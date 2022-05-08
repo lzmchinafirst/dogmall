@@ -14,7 +14,9 @@
         <module>dogmall-redis</module>
         <module>dogmall-mvc</module>
         <module>dogmall-feign</module>
-        <module>dogmall-pms-provider</module>
+        <module>dogmall-pms-api</module>
+        <module>dogmall-sms-api</module>
+        <module>dogmall-ums-api</module>
         <module>dogmall-back</module>
         <module>dogmall-bus</module>
         <module>dogmall-core</module>
@@ -25,7 +27,6 @@
         <module>dogmall-wms</module>
         <module>dogmall-oms</module>
         <module>dogmall-sms</module>
-        <module>dogmall-generator</module>
         <module>dogmall-datasource</module>
     </modules>
     <!--  the project describe  -->
@@ -86,7 +87,12 @@
             </dependency>
             <dependency>
                 <groupId>org.singledog.dogmall</groupId>
-                <artifactId>dogmall-pms-provider</artifactId>
+                <artifactId>dogmall-pms-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.singledog.dogmall</groupId>
+                <artifactId>dogmall-sms-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -129,11 +135,6 @@
                 <groupId>org.singledog.dogmall</groupId>
                 <artifactId>dogmall-datasource</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.zaxxer</groupId>
